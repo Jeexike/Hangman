@@ -1,6 +1,6 @@
 package ui;
 
-public class MainMenuView implements View{
+public class MainMenuView implements View {
 
     @Override
     public void show() {

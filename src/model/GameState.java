@@ -5,11 +5,11 @@ import java.util.Set;
 
 public class GameState {
     private final String hiddenWord;
-    private final Set<Character> wrongInputLetter;
-    private final Set<Character> correctInputLetter;
+    private final Set<Character> wrongInputLetterSet;
+    private final Set<Character> correctInputLetterSet;
     private final Difficulty difficulty;
-    HangmanState hangmanState = HangmanState.IN_PROCESS;
-    InputState inputState;
+    private HangmanState hangmanState;
+    private InputState inputState;
 
     public GameState(String hiddenWord, Difficulty difficulty) {
         if (hiddenWord == null || hiddenWord.isEmpty()) {
@@ -17,28 +17,29 @@ public class GameState {
         }
 
         this.hiddenWord = hiddenWord;
-        wrongInputLetter = new HashSet<>();
-        correctInputLetter = new HashSet<>();
+        wrongInputLetterSet = new HashSet<>();
+        correctInputLetterSet = new HashSet<>();
         this.difficulty = difficulty;
+        hangmanState = HangmanState.IN_PROCESS;
     }
 
     public void guessLetter(char letter) {
-        if (wrongInputLetter.contains(letter) || correctInputLetter.contains(letter)) {
+        if (wrongInputLetterSet.contains(letter) || correctInputLetterSet.contains(letter)) {
             inputState = InputState.EXISTS;
         } else if (hiddenWord.indexOf(letter) >= 0) {
             inputState = InputState.RIGHT;
-            correctInputLetter.add(letter);
+            correctInputLetterSet.add(letter);
             isWon();
         } else {
             inputState = InputState.WRONG;
-            wrongInputLetter.add(letter);
+            wrongInputLetterSet.add(letter);
             isLost();
         }
     }
 
     public void isWon() {
         for (char c : hiddenWord.toCharArray()) {
-            if (!correctInputLetter.contains(c)) {
+            if (!correctInputLetterSet.contains(c)) {
                 return;
             }
         }
@@ -46,7 +47,7 @@ public class GameState {
     }
 
     public void isLost() {
-        if (wrongInputLetter.size() >= difficulty.getMaxLives()) {
+        if (wrongInputLetterSet.size() >= difficulty.getMaxLives()) {
             hangmanState = HangmanState.LOSE;
         }
     }
@@ -54,7 +55,7 @@ public class GameState {
     public String getVisibleWord() {
         StringBuilder sb = new StringBuilder();
         for (char c : hiddenWord.toCharArray()) {
-            if (correctInputLetter.contains(c)) {
+            if (correctInputLetterSet.contains(c)) {
                 sb.append(c).append(" ");
             } else {
                 sb.append("_ ");
@@ -64,8 +65,8 @@ public class GameState {
     }
 
     public String getHiddenWord() { return hiddenWord; }
-    public Set<Character> getWrongInputCharacter() { return wrongInputLetter; }
-    public Set<Character> getCorrectInputCharacter() { return correctInputLetter; }
+    public Set<Character> getWrongInputCharacter() { return wrongInputLetterSet; }
+    public Set<Character> getCorrectInputCharacter() { return correctInputLetterSet; }
     public Difficulty getDifficulty() { return difficulty; }
     public HangmanState getHangmanState() { return hangmanState; }
     public InputState getInputState() { return inputState; }

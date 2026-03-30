@@ -16,6 +16,7 @@ public enum Difficulty {
         this.maxWordLength = maxWordLength;
         this.maxLives = maxLives;
     }
+
     public String getDisplayName() {
         return displayName;
     }

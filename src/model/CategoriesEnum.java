@@ -1,6 +1,6 @@
 package model;
 
-public enum Categories {
+public enum CategoriesEnum {
     SPORT("Спорт"),
     FOOD("Еда"),
     ANIMALS("Животные"),
@@ -8,7 +8,7 @@ public enum Categories {
 
     private final String displayName;
 
-    Categories(String displayName) {
+    CategoriesEnum(String displayName) {
         this.displayName = displayName;
     }
 

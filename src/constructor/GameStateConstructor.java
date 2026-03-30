@@ -1,25 +1,26 @@
 package constructor;
 
 import data.FileWordRepository;
-import model.Categories;
+import model.CategoriesEnum;
 import model.Difficulty;
 import model.GameState;
 
 import java.util.Set;
 
 public class GameStateConstructor {
-    static Categories categories;
-    static Difficulty difficulty;
-    static GameState gameState;
+    private static CategoriesEnum categories;
+    private static Difficulty difficulty;
+    private static GameState gameState;
     static FileWordRepository fileWordRepository = new FileWordRepository();
 
-    private GameStateConstructor() {}
+    private GameStateConstructor() {
+    }
 
     static void setGameStatusParam() {
         gameState = new GameState(fileWordRepository.getRandomWord(categories, difficulty), difficulty);
     }
 
-    public static void setCategories(Categories categories) {
+    public static void setCategories(CategoriesEnum categories) {
         GameStateConstructor.categories = categories;
         if (categories != null && difficulty != null) {
             setGameStatusParam();
@@ -51,7 +52,7 @@ public class GameStateConstructor {
     }
 
     public static String getHiddenWord() {
-            return gameState.getHiddenWord();
+        return gameState.getHiddenWord();
     }
 
     public static Set<Character> getWrongLetters() {
@@ -62,6 +63,11 @@ public class GameStateConstructor {
         return difficulty.getMaxLives();
     }
 
-    public static Categories getCategories() { return categories; }
-    public static Difficulty getDifficulty() { return difficulty; }
+    public static CategoriesEnum getCategories() {
+        return categories;
+    }
+
+    public static Difficulty getDifficulty() {
+        return difficulty;
+    }
 }

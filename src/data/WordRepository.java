@@ -1,18 +1,16 @@
 package data;
 
-import model.Categories;
+import model.CategoriesEnum;
 import model.Difficulty;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.Random;
 
 public interface WordRepository {
+    final String FILE_PATH = "src/resources/words";
 
     void getAllWards(String filepath);
 
-    List<String> getWordsByDifficulty(Categories category, Difficulty difficulty);
+    List<String> getWordsByDifficulty(CategoriesEnum category, Difficulty difficulty);
 
-    String getRandomWord(Categories category, Difficulty difficulty);
+    String getRandomWord(CategoriesEnum category, Difficulty difficulty);
 }

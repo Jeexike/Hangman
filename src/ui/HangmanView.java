@@ -4,7 +4,7 @@ package ui;
 import constructor.GameStateConstructor;
 import model.GameState;
 
-public class HangmanView implements View{
+public class HangmanView implements View {
     @Override
     public void show() {
         System.out.println();

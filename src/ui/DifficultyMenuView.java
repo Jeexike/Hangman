@@ -3,7 +3,7 @@ package ui;
 import constructor.GameStateConstructor;
 import model.Difficulty;
 
-public class DifficultyMenuView implements View{
+public class DifficultyMenuView implements View {
     @Override
     public void show() {
         int counter = 0;
@@ -13,7 +13,7 @@ public class DifficultyMenuView implements View{
             counter++;
             System.out.printf("%d. ", counter);
             System.out.printf("%s. Длина слова от %d до %d. Попыток: %d\n", difficulty.getDisplayName()
-            , difficulty.getMinWordLength(), difficulty.getMaxWordLength(), difficulty.getMaxLives());
+                    , difficulty.getMinWordLength(), difficulty.getMaxWordLength(), difficulty.getMaxLives());
         }
         counter = 0;
         System.out.print("Ваш выбор: ");

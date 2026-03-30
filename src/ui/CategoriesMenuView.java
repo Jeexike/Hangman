@@ -1,16 +1,16 @@
 package ui;
 
 import constructor.GameStateConstructor;
-import model.Categories;
+import model.CategoriesEnum;
 
-public class CategoriesMenuView implements View{
+public class CategoriesMenuView implements View {
 
     @Override
     public void show() {
         int counter = 0;
         System.out.println();
         System.out.println("Выбирите категорию: ");
-        for (Categories category : Categories.values()) {
+        for (CategoriesEnum category : CategoriesEnum.values()) {
             counter++;
             System.out.printf("%d. ", counter);
             System.out.println(category.getDisplayName());
@@ -18,7 +18,7 @@ public class CategoriesMenuView implements View{
         counter = 0;
         System.out.print("Ваш выбор: ");
         int choice = handleInput();
-        for (Categories categories : Categories.values()) {
+        for (CategoriesEnum categories : CategoriesEnum.values()) {
             counter++;
             if (counter == choice) {
                 System.out.println("Вы выбрали категорию: " + categories.getDisplayName());
