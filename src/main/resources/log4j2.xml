@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN">
+    <Properties>
+        <Property name="log-path">logs</Property>
+        <Property name="log-pattern">%d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n</Property>
+    </Properties>
+
+    <Appenders>
+        <RollingFile name="RollingFile"
+                     fileName="${log-path}/app.log"
+                     filePattern="${log-path}/app-%d{yyyy-MM-dd}-%i.log.gz">
+            <PatternLayout pattern="${log-pattern}"/>
+            <Policies>
+                <SizeBasedTriggeringPolicy size="10 MB"/>
+                <TimeBasedTriggeringPolicy interval="1" modulate="true"/>
+            </Policies>
+            <DefaultRolloverStrategy max="30"/>
+        </RollingFile>
+    </Appenders>
+
+    <Loggers>
+        <Root level="info">
+            <AppenderRef ref="RollingFile"/>
+        </Root>
+
+        <Logger name="ui" level="debug" additivity="false">
+            <AppenderRef ref="RollingFile"/>
+        </Logger>
+
+        <Logger name="model" level="debug" additivity="false">
+            <AppenderRef ref="RollingFile"/>
+        </Logger>
+
+        <Logger name="constructor" level="debug" additivity="false">
+            <AppenderRef ref="RollingFile"/>
+        </Logger>
+
+        <Logger name="data" level="debug" additivity="false">
+            <AppenderRef ref="RollingFile"/>
+        </Logger>
+    </Loggers>
+</Configuration>
