@@ -3,74 +3,90 @@ package model;
 import java.util.HashSet;
 import java.util.Set;
 
-public class GameState {
-    private final String hiddenWord;
-    private final Set<Character> wrongInputLetterSet;
-    private final Set<Character> correctInputLetterSet;
-    private final Difficulty difficulty;
-    private HangmanState hangmanState;
-    private InputState inputState;
+import lombok.Getter;
+import lombok.extern.slf4j.Slf4j;
 
-    public GameState(String hiddenWord, Difficulty difficulty) {
-        if (hiddenWord == null || hiddenWord.isEmpty()) {
-            throw new IllegalArgumentException("Слово не может быть пустым!");
-        }
+@Slf4j
+@Getter public class GameState {
+  private final String hiddenWord;
+  private final Set<Character> wrongInputLetterSet;
+  private final Set<Character> correctInputLetterSet;
+  private final Difficulty difficulty;
+  private HangmanState hangmanState;
+  private InputState inputState;
 
-        this.hiddenWord = hiddenWord;
-        wrongInputLetterSet = new HashSet<>();
-        correctInputLetterSet = new HashSet<>();
-        this.difficulty = difficulty;
-        hangmanState = HangmanState.IN_PROCESS;
+  public GameState(String hiddenWord, Difficulty difficulty) {
+    log.debug("Creating new GameState for word (length: {}), difficulty={}", hiddenWord.length(), difficulty);
+    if (hiddenWord.isEmpty()) {
+      log.error("Attempted to create GameState with empty word");
+      throw new IllegalArgumentException("Слово не может быть пустым!");
     }
 
-    public void guessLetter(char letter) {
-        if (wrongInputLetterSet.contains(letter) || correctInputLetterSet.contains(letter)) {
-            inputState = InputState.EXISTS;
-        } else if (hiddenWord.indexOf(letter) >= 0) {
-            inputState = InputState.RIGHT;
-            correctInputLetterSet.add(letter);
-            isWon();
-        } else {
-            inputState = InputState.WRONG;
-            wrongInputLetterSet.add(letter);
-            isLost();
-        }
+    this.hiddenWord = hiddenWord;
+    wrongInputLetterSet = new HashSet<>();
+    correctInputLetterSet = new HashSet<>();
+    this.difficulty = difficulty;
+    hangmanState = HangmanState.IN_PROCESS;
+
+    log.info("GameState created successfully");
+  }
+
+  public void guessLetter(char letter) {
+    log.debug("Processing guess for letter: '{}'", letter);
+    if (wrongInputLetterSet.contains(letter) || correctInputLetterSet.contains(letter)) {
+      log.debug("Letter '{}' was already guessed", letter);
+      inputState = InputState.EXISTS;
+    } else if (hiddenWord.indexOf(letter) >= 0) {
+      log.debug("Letter '{}' is correct", letter);
+      inputState = InputState.RIGHT;
+      correctInputLetterSet.add(letter);
+      checkWinCondition();
+    } else {
+      log.debug("Letter '{}' is wrong", letter);
+      inputState = InputState.WRONG;
+      wrongInputLetterSet.add(letter);
+      checkLoseCondition();
     }
+  }
 
-    public void isWon() {
-        for (char c : hiddenWord.toCharArray()) {
-            if (!correctInputLetterSet.contains(c)) {
-                return;
-            }
-        }
-        hangmanState = HangmanState.WIN;
+  public void checkWinCondition() {
+    for (char c : hiddenWord.toCharArray()) {
+      if (!correctInputLetterSet.contains(c)) {
+        return;
+      }
     }
+    hangmanState = HangmanState.WIN;
+    log.info("Player won! All letters guessed");
+  }
 
-    public void isLost() {
-        if (wrongInputLetterSet.size() >= difficulty.getMaxLives()) {
-            hangmanState = HangmanState.LOSE;
-        }
+  public void checkLoseCondition() {
+    if (wrongInputLetterSet.size() >= difficulty.getMaxLives()) {
+      hangmanState = HangmanState.LOSE;
+      log.info("Player lost: max attempts reached");
     }
+  }
 
-    public String getVisibleWord() {
-        StringBuilder sb = new StringBuilder();
-        for (char c : hiddenWord.toCharArray()) {
-            if (correctInputLetterSet.contains(c)) {
-                sb.append(c).append(" ");
-            } else {
-                sb.append("_ ");
-            }
-        }
-        return sb.toString().trim();
+  public String getVisibleWord() {
+    StringBuilder sb = new StringBuilder();
+    for (char c : hiddenWord.toCharArray()) {
+      if (correctInputLetterSet.contains(c)) {
+        sb.append(c).append(" ");
+      } else {
+        sb.append("_ ");
+      }
     }
+    return sb.toString().trim();
+  }
 
-    public String getHiddenWord() { return hiddenWord; }
-    public Set<Character> getWrongInputCharacter() { return wrongInputLetterSet; }
-    public Set<Character> getCorrectInputCharacter() { return correctInputLetterSet; }
-    public Difficulty getDifficulty() { return difficulty; }
-    public HangmanState getHangmanState() { return hangmanState; }
-    public InputState getInputState() { return inputState; }
+  public enum InputState {
+    RIGHT,
+    WRONG,
+    EXISTS
+  }
 
-    public enum InputState { RIGHT, WRONG, EXISTS }
-    public enum HangmanState { WIN, LOSE, IN_PROCESS }
+  public enum HangmanState {
+    WIN,
+    LOSE,
+    IN_PROCESS
+  }
 }

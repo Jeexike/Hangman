@@ -1,18 +1,16 @@
 package model;
 
-public enum CategoriesEnum {
-    SPORT("Спорт"),
-    FOOD("Еда"),
-    ANIMALS("Животные"),
-    WEATHER("Погода");
+import lombok.Getter;
 
-    private final String displayName;
+@Getter public enum CategoriesEnum {
+  SPORT("Спорт"),
+  FOOD("Еда"),
+  ANIMALS("Животные"),
+  WEATHER("Погода");
 
-    CategoriesEnum(String displayName) {
-        this.displayName = displayName;
-    }
+  private final String displayName;
 
-    public String getDisplayName() {
-        return displayName;
-    }
+  CategoriesEnum(String displayName) {
+    this.displayName = displayName;
+  }
 }
