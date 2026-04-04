@@ -1,0 +1,27 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: dev
+      comment: "Creating the hangman_words table and indexes"
+      changes:
+        - createTable:
+            tableName: hangman_words
+            columns:
+              - column: { name: id, type: int, autoIncrement: true, constraints: { primaryKey: true, nullable: false } }
+              - column: { name: word, type: varchar(50), constraints: { nullable: false } }
+              - column: { name: category, type: varchar(50), constraints: { nullable: false } }
+              - column: { name: difficulty, type: smallint, constraints: { nullable: false } }
+              - column: { name: is_active, type: boolean, defaultValueBoolean: true }
+
+        - addUniqueConstraint:
+            tableName: hangman_words
+            columnNames: word, category, difficulty
+            constraintName: uq_word_cat_diff
+
+        - createIndex:
+            tableName: hangman_words
+            indexName: idx_hangman_lookup
+            columns:
+              - column: { name: category }
+              - column: { name: difficulty }
+            where: is_active = true

@@ -2,11 +2,12 @@ package constructor;
 
 import java.util.Set;
 
-import data.FileWordRepository;
+// import data.FileWordRepository;
+import data.PSQLWordProvider;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import model.CategoriesEnum;
-import model.Difficulty;
+import model.DifficultyEnum;
 import model.GameState;
 
 @Slf4j
@@ -14,10 +15,12 @@ public class GameStateConstructor {
 	@Getter
 	private static CategoriesEnum categories;
 	@Getter
-	private static Difficulty difficulty;
+	private static DifficultyEnum difficulty;
 	private static GameState gameState;
 	@Getter
-	static FileWordRepository fileWordRepository = new FileWordRepository();
+	static PSQLWordProvider psqlWordProvider = new PSQLWordProvider();
+	// @Getter
+	// static FileWordRepository fileWordRepository = new FileWordRepository();
 
 	private GameStateConstructor() {
 	}
@@ -26,7 +29,8 @@ public class GameStateConstructor {
 		log.debug("Setting game status parameters");
 		log.debug("Selected category: {}, difficulty: {}", categories, difficulty);
 
-		String word = fileWordRepository.getRandomWord(categories, difficulty);
+		// String word = fileWordRepository.getRandomWord(categories, difficulty);
+		String word = psqlWordProvider.getRandomWord(categories, difficulty);
 		log.debug("Selected random word (length: {})", word.length());
 
 		gameState = new GameState(word, difficulty);
@@ -45,7 +49,7 @@ public class GameStateConstructor {
 		}
 	}
 
-	public static void setDifficulty(Difficulty difficulty) {
+	public static void setDifficulty(DifficultyEnum difficulty) {
 		log.debug("Setting difficulty: {}", difficulty);
 		GameStateConstructor.difficulty = difficulty;
 

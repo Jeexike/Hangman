@@ -12,11 +12,11 @@ public class GameState {
 	private final String hiddenWord;
 	private final Set<Character> wrongInputLetterSet;
 	private final Set<Character> correctInputLetterSet;
-	private final Difficulty difficulty;
+	private final DifficultyEnum difficulty;
 	private HangmanState hangmanState;
 	private InputState inputState;
 
-	public GameState(String hiddenWord, Difficulty difficulty) {
+	public GameState(String hiddenWord, DifficultyEnum difficulty) {
 		log.debug("Creating new GameState for word (length: {}), difficulty={}", hiddenWord.length(), difficulty);
 		if (hiddenWord.isEmpty()) {
 			log.error("Attempted to create GameState with empty word");

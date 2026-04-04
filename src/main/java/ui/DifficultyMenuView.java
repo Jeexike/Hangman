@@ -2,7 +2,7 @@ package ui;
 
 import constructor.GameStateConstructor;
 import lombok.extern.slf4j.Slf4j;
-import model.Difficulty;
+import model.DifficultyEnum;
 
 @Slf4j
 public class DifficultyMenuView implements View {
@@ -12,7 +12,7 @@ public class DifficultyMenuView implements View {
 		int counter = 0;
 		System.out.println();
 		System.out.println("Выберите сложность: ");
-		for (Difficulty difficulty : Difficulty.values()) {
+		for (DifficultyEnum difficulty : DifficultyEnum.values()) {
 			counter++;
 			System.out.printf("%d. ", counter);
 			System.out.printf("%s. Длина слова от %d до %d. Попыток: %d\n", difficulty.getDisplayName(),
@@ -21,7 +21,7 @@ public class DifficultyMenuView implements View {
 		counter = 0;
 		System.out.print("Ваш выбор: ");
 		int choice = handleInput();
-		for (Difficulty difficulty : Difficulty.values()) {
+		for (DifficultyEnum difficulty : DifficultyEnum.values()) {
 			counter++;
 			if (counter == choice) {
 				log.info("User selected difficulty: {}", difficulty.getDisplayName());

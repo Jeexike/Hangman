@@ -12,7 +12,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
 import model.CategoriesEnum;
-import model.Difficulty;
+import model.DifficultyEnum;
 
 @DisplayName("FileWordRepository Tests")
 class FileWordRepositoryTest {
@@ -50,12 +50,12 @@ class FileWordRepositoryTest {
 		FileWordRepository repository = new FileWordRepository();
 		repository.getAllWords(wordsFile.toString());
 
-		var animals = repository.getWordsByDifficulty(CategoriesEnum.ANIMALS, Difficulty.EASY);
+		var animals = repository.getWordsByDifficulty(CategoriesEnum.ANIMALS, DifficultyEnum.EASY);
 
 		assertThat(animals).contains("кот", "лев", "тигр");
 		assertThat(animals).doesNotContain("собака");
 
-		var food = repository.getWordsByDifficulty(CategoriesEnum.FOOD, Difficulty.EASY);
+		var food = repository.getWordsByDifficulty(CategoriesEnum.FOOD, DifficultyEnum.EASY);
 
 		assertThat(food).contains("суп", "борщ");
 	}
@@ -66,7 +66,7 @@ class FileWordRepositoryTest {
 		FileWordRepository repository = new FileWordRepository();
 		repository.getAllWords(wordsFile.toString());
 
-		var easyWords = repository.getWordsByDifficulty(CategoriesEnum.ANIMALS, Difficulty.EASY);
+		var easyWords = repository.getWordsByDifficulty(CategoriesEnum.ANIMALS, DifficultyEnum.EASY);
 
 		assertThat(easyWords).contains("кот", "лев", "тигр").doesNotContain("собака")
 				.allMatch(word -> word.length() >= 3 && word.length() <= 5);
@@ -78,7 +78,7 @@ class FileWordRepositoryTest {
 		FileWordRepository repository = new FileWordRepository();
 		repository.getAllWords(wordsFile.toString());
 
-		var normalWords = repository.getWordsByDifficulty(CategoriesEnum.ANIMALS, Difficulty.NORMAL);
+		var normalWords = repository.getWordsByDifficulty(CategoriesEnum.ANIMALS, DifficultyEnum.NORMAL);
 
 		assertThat(normalWords).contains("собака").allMatch(word -> word.length() >= 6 && word.length() <= 8);
 	}
@@ -89,7 +89,7 @@ class FileWordRepositoryTest {
 		FileWordRepository repository = new FileWordRepository();
 		repository.getAllWords(wordsFile.toString());
 
-		var hardWords = repository.getWordsByDifficulty(CategoriesEnum.ANIMALS, Difficulty.HARD);
+		var hardWords = repository.getWordsByDifficulty(CategoriesEnum.ANIMALS, DifficultyEnum.HARD);
 
 		assertThat(hardWords).contains("гетеродонтозавр").allMatch(word -> word.length() >= 9 && word.length() <= 15);
 	}
@@ -100,7 +100,7 @@ class FileWordRepositoryTest {
 		FileWordRepository repository = new FileWordRepository();
 		repository.getAllWords(wordsFile.toString());
 
-		String word = repository.getRandomWord(CategoriesEnum.FOOD, Difficulty.EASY);
+		String word = repository.getRandomWord(CategoriesEnum.FOOD, DifficultyEnum.EASY);
 
 		assertThat(word).isIn("пицца", "суп", "борщ");
 		assertThat(word).isLowerCase();
@@ -112,7 +112,7 @@ class FileWordRepositoryTest {
 		FileWordRepository repository = new FileWordRepository();
 		repository.getAllWords(wordsFile.toString());
 
-		var words = repository.getWordsByDifficulty(CategoriesEnum.FOOD, Difficulty.HARD);
+		var words = repository.getWordsByDifficulty(CategoriesEnum.FOOD, DifficultyEnum.HARD);
 
 		assertThat(words).contains("пицца", "суп", "борщ");
 	}
@@ -123,7 +123,7 @@ class FileWordRepositoryTest {
 		FileWordRepository repository = new FileWordRepository();
 		repository.getAllWords(wordsFile.toString());
 
-		var allWords = repository.getWordsByDifficulty(CategoriesEnum.ANIMALS, Difficulty.EASY);
+		var allWords = repository.getWordsByDifficulty(CategoriesEnum.ANIMALS, DifficultyEnum.EASY);
 
 		assertThat(allWords).allMatch(word -> word.equals(word.toLowerCase()));
 	}

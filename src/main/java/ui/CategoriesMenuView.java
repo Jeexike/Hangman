@@ -38,15 +38,15 @@ public class CategoriesMenuView implements View {
 			String input = in.next();
 			if (!input.matches("\\d+")) {
 				log.warn("Invalid category input: {}", input);
-				System.out.print("Ошибка: введите число от 1 до 4: ");
+				System.out.print("Ошибка: введите число от 1 до 7: ");
 				continue;
 			}
 
 			int choice = Integer.parseInt(input);
 
-			if (!(choice >= 1 && choice <= 4)) {
+			if (!(choice >= 1 && choice <= 7)) {
 				log.warn("Invalid category choice: {}", choice);
-				System.out.print("Ошибка: введите число от 1 до 4: ");
+				System.out.print("Ошибка: введите число от 1 до 7: ");
 				continue;
 			}
 

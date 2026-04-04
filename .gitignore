@@ -40,3 +40,10 @@ build/
 
 ### Logs ###
 .log
+
+# Docker secrets
+liquibase.properties
+.env
+
+# DB secrets
+src/resources/application.properties
