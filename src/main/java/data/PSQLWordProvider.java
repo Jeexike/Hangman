@@ -34,7 +34,7 @@ public class PSQLWordProvider implements RandomWordProvider {
 	public String getRandomWord(CategoriesEnum category, DifficultyEnum difficulty) {
 		log.debug("Fetching random word: category={}, difficulty={}", category, difficulty);
 		if (testWord != null) {
-			log.debug("[TEST MODE] Returning test word override: {}", testWord);
+			log.debug("Returning test word override: {}", testWord);
 			return testWord;
 		}
 
