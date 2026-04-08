@@ -14,13 +14,13 @@ class GameStateTest {
 
 	@BeforeEach
 	void setUp() {
-		gameState = new GameState("машина", Difficulty.EASY);
+		gameState = new GameState("машина", DifficultyEnum.NORMAL);
 	}
 
 	@Test
 	@DisplayName("Creating GameState with empty word throws exception")
 	void testCreateWithEmptyWord() {
-		assertThatThrownBy(() -> new GameState("", Difficulty.EASY)).isInstanceOf(IllegalArgumentException.class)
+		assertThatThrownBy(() -> new GameState("", DifficultyEnum.EASY)).isInstanceOf(IllegalArgumentException.class)
 				.hasMessage("Слово не может быть пустым!");
 	}
 

@@ -1,0 +1,8 @@
+databaseChangeLog:
+  - include:
+      file: 01-create-schema.yaml
+      relativeToChangelogFile: true
+
+  - include:
+      file: data/01-initial-words.sql
+      relativeToChangelogFile: true

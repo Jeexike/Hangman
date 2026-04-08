@@ -9,7 +9,6 @@ public class CategoriesMenuView implements View {
 
 	@Override
 	public void show() {
-		log.debug("Displaying category selection menu");
 		int counter = 0;
 		System.out.println();
 		System.out.println("Выбирите категорию: ");
@@ -33,24 +32,22 @@ public class CategoriesMenuView implements View {
 
 	@Override
 	public int handleInput() {
-		log.debug("Processing category input");
 		while (true) {
 			String input = in.next();
 			if (!input.matches("\\d+")) {
 				log.warn("Invalid category input: {}", input);
-				System.out.print("Ошибка: введите число от 1 до 4: ");
+				System.out.print("Ошибка: введите число от 1 до 7: ");
 				continue;
 			}
 
 			int choice = Integer.parseInt(input);
 
-			if (!(choice >= 1 && choice <= 4)) {
+			if (!(choice >= 1 && choice <= 7)) {
 				log.warn("Invalid category choice: {}", choice);
-				System.out.print("Ошибка: введите число от 1 до 4: ");
+				System.out.print("Ошибка: введите число от 1 до 7: ");
 				continue;
 			}
 
-			log.debug("Category selected: {}", choice);
 			return choice;
 		}
 	}

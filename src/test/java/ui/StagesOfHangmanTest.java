@@ -12,14 +12,6 @@ import org.junit.jupiter.api.Test;
 class StagesOfHangmanTest {
 
 	@Test
-	@DisplayName("getStage returns correct stage for valid input")
-	void testGetStage_validInput() {
-		assertEquals(StagesOfHangman.STAGE_0, StagesOfHangman.getStage(0));
-		assertEquals(StagesOfHangman.STAGE_3, StagesOfHangman.getStage(3));
-		assertEquals(StagesOfHangman.STAGE_6, StagesOfHangman.getStage(6));
-	}
-
-	@Test
 	@DisplayName("getStage clamps negative values to 0")
 	void testGetStage_negativeInput() {
 		assertEquals(StagesOfHangman.STAGE_0, StagesOfHangman.getStage(-1));

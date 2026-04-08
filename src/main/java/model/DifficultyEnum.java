@@ -3,7 +3,7 @@ package model;
 import lombok.Getter;
 
 @Getter
-public enum Difficulty {
+public enum DifficultyEnum {
 	EASY("Легко", 3, 5, 6), NORMAL("Нормально", 6, 8, 6), HARD("Сложно", 9, 15, 6);
 
 	private final String displayName;
@@ -11,7 +11,7 @@ public enum Difficulty {
 	private final int maxWordLength;
 	private final int maxLives;
 
-	Difficulty(String displayName, int minWordLength, int maxWordLength, int maxLives) {
+	DifficultyEnum(String displayName, int minWordLength, int maxWordLength, int maxLives) {
 		this.displayName = displayName;
 		this.minWordLength = minWordLength;
 		this.maxWordLength = maxWordLength;

@@ -12,7 +12,7 @@ import java.util.Random;
 
 import lombok.extern.slf4j.Slf4j;
 import model.CategoriesEnum;
-import model.Difficulty;
+import model.DifficultyEnum;
 
 @Slf4j
 public class FileWordRepository implements WordRepository {
@@ -94,7 +94,7 @@ public class FileWordRepository implements WordRepository {
 	// }
 
 	@Override
-	public List<String> getWordsByDifficulty(CategoriesEnum category, Difficulty difficulty) {
+	public List<String> getWordsByDifficulty(CategoriesEnum category, DifficultyEnum difficulty) {
 		log.debug("Getting words for category={}, difficulty={}", category, difficulty);
 		List<String> wordsByDifficult = new ArrayList<>(categoryMap.get(category));
 		Iterator<String> iterator = wordsByDifficult.iterator();
@@ -115,7 +115,7 @@ public class FileWordRepository implements WordRepository {
 	}
 
 	@Override
-	public String getRandomWord(CategoriesEnum category, Difficulty difficulty) {
+	public String getRandomWord(CategoriesEnum category, DifficultyEnum difficulty) {
 		if (testWordOverride != null) {
 			log.debug("Returning test word override: {}", testWordOverride);
 			return testWordOverride;

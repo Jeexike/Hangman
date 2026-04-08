@@ -8,7 +8,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import model.CategoriesEnum;
-import model.Difficulty;
+import model.DifficultyEnum;
 import model.GameState;
 
 @DisplayName("GameStateConstructor Tests ")
@@ -18,14 +18,14 @@ class GameStateConstructorTest {
 	void setUp() {
 		GameStateConstructor.setCategories(null);
 		GameStateConstructor.setDifficulty(null);
-		GameStateConstructor.getFileWordRepository().clearTestWord();
+		GameStateConstructor.getPsqlWordProvider().PSQLClearTestWord();
 	}
 
 	@AfterEach
 	void tearDown() {
 		GameStateConstructor.setCategories(null);
 		GameStateConstructor.setDifficulty(null);
-		GameStateConstructor.getFileWordRepository().clearTestWord();
+		GameStateConstructor.getPsqlWordProvider().PSQLClearTestWord();
 	}
 
 	@Test
@@ -39,19 +39,19 @@ class GameStateConstructorTest {
 	@Test
 	@DisplayName("Setting difficulty saves value")
 	void testSetDifficulty() {
-		GameStateConstructor.setDifficulty(Difficulty.EASY);
+		GameStateConstructor.setDifficulty(DifficultyEnum.EASY);
 
-		assertThat(GameStateConstructor.getDifficulty()).isEqualTo(Difficulty.EASY);
+		assertThat(GameStateConstructor.getDifficulty()).isEqualTo(DifficultyEnum.EASY);
 	}
 
 	@Test
 	@DisplayName("Game initializes when both parameters are set")
 	void testSetCategoriesAndDifficulty_initializesGame() {
 		GameStateConstructor.setCategories(CategoriesEnum.ANIMALS);
-		GameStateConstructor.setDifficulty(Difficulty.EASY);
+		GameStateConstructor.setDifficulty(DifficultyEnum.EASY);
 
 		assertThat(GameStateConstructor.getCategories()).isEqualTo(CategoriesEnum.ANIMALS);
-		assertThat(GameStateConstructor.getDifficulty()).isEqualTo(Difficulty.EASY);
+		assertThat(GameStateConstructor.getDifficulty()).isEqualTo(DifficultyEnum.EASY);
 		assertThat(GameStateConstructor.getMaxLives()).isEqualTo(6);
 		assertThat(GameStateConstructor.getHiddenWord()).isNotBlank();
 	}
@@ -60,7 +60,7 @@ class GameStateConstructorTest {
 	@DisplayName("InputCharToGameStatus returns RIGHT for correct letter")
 	void testInputCharToGameStatus_correctLetter() {
 		GameStateConstructor.setCategories(CategoriesEnum.ANIMALS);
-		GameStateConstructor.setDifficulty(Difficulty.EASY);
+		GameStateConstructor.setDifficulty(DifficultyEnum.EASY);
 
 		String hidden = GameStateConstructor.getHiddenWord();
 		char knownLetter = hidden.charAt(0);
@@ -72,9 +72,9 @@ class GameStateConstructorTest {
 	@Test
 	@DisplayName("InputCharToGameStatus returns WRONG for wrong letter")
 	void testInputCharToGameStatus_wrongLetter() {
-		GameStateConstructor.getFileWordRepository().setTestWord("машина");
+		GameStateConstructor.getPsqlWordProvider().PSQLSetTestWord("машина");
 		GameStateConstructor.setCategories(CategoriesEnum.ANIMALS);
-		GameStateConstructor.setDifficulty(Difficulty.EASY);
+		GameStateConstructor.setDifficulty(DifficultyEnum.EASY);
 
 		var result = GameStateConstructor.InputCharToGameStatus('л');
 
@@ -84,9 +84,9 @@ class GameStateConstructorTest {
 	@Test
 	@DisplayName("getWrongLetters returns list of wrong letters")
 	void testGetWrongLetters() {
-		GameStateConstructor.getFileWordRepository().setTestWord("машина");
+		GameStateConstructor.getPsqlWordProvider().PSQLSetTestWord("машина");
 		GameStateConstructor.setCategories(CategoriesEnum.ANIMALS);
-		GameStateConstructor.setDifficulty(Difficulty.EASY);
+		GameStateConstructor.setDifficulty(DifficultyEnum.EASY);
 		GameStateConstructor.InputCharToGameStatus('л');
 		GameStateConstructor.InputCharToGameStatus('д');
 
@@ -97,7 +97,7 @@ class GameStateConstructorTest {
 	@DisplayName("getVisibleWord returns word with underscores")
 	void testGetVisibleWord() {
 		GameStateConstructor.setCategories(CategoriesEnum.ANIMALS);
-		GameStateConstructor.setDifficulty(Difficulty.EASY);
+		GameStateConstructor.setDifficulty(DifficultyEnum.EASY);
 
 		String visible = GameStateConstructor.getVisibleWord();
 

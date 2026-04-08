@@ -12,12 +12,11 @@ public class GameState {
 	private final String hiddenWord;
 	private final Set<Character> wrongInputLetterSet;
 	private final Set<Character> correctInputLetterSet;
-	private final Difficulty difficulty;
+	private final DifficultyEnum difficulty;
 	private HangmanState hangmanState;
 	private InputState inputState;
 
-	public GameState(String hiddenWord, Difficulty difficulty) {
-		log.debug("Creating new GameState for word (length: {}), difficulty={}", hiddenWord.length(), difficulty);
+	public GameState(String hiddenWord, DifficultyEnum difficulty) {
 		if (hiddenWord.isEmpty()) {
 			log.error("Attempted to create GameState with empty word");
 			throw new IllegalArgumentException("Слово не может быть пустым!");
@@ -33,17 +32,13 @@ public class GameState {
 	}
 
 	public void guessLetter(char letter) {
-		log.debug("Processing guess for letter: '{}'", letter);
 		if (wrongInputLetterSet.contains(letter) || correctInputLetterSet.contains(letter)) {
-			log.debug("Letter '{}' was already guessed", letter);
 			inputState = InputState.EXISTS;
 		} else if (hiddenWord.indexOf(letter) >= 0) {
-			log.debug("Letter '{}' is correct", letter);
 			inputState = InputState.RIGHT;
 			correctInputLetterSet.add(letter);
 			checkWinCondition();
 		} else {
-			log.debug("Letter '{}' is wrong", letter);
 			inputState = InputState.WRONG;
 			wrongInputLetterSet.add(letter);
 			checkLoseCondition();
