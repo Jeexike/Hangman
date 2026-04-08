@@ -8,7 +8,6 @@ import model.DifficultyEnum;
 public class DifficultyMenuView implements View {
 	@Override
 	public void show() {
-		log.debug("Displaying difficulty selection menu");
 		int counter = 0;
 		System.out.println();
 		System.out.println("Выберите сложность: ");
@@ -50,7 +49,6 @@ public class DifficultyMenuView implements View {
 				continue;
 			}
 
-			log.debug("Difficulty selected: {}", choice);
 			return choice;
 		}
 	}

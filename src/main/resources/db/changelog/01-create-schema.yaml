@@ -20,8 +20,8 @@ databaseChangeLog:
 
         - createIndex:
             tableName: hangman_words
-            indexName: idx_hangman_lookup
+            indexName: idx_hangman_words_diff_category
             columns:
-              - column: { name: category }
               - column: { name: difficulty }
+              - column: { name: category }
             where: is_active = true

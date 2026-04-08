@@ -88,7 +88,6 @@ public class PSQLWordProvider implements RandomWordProvider {
 			}
 		} catch (SQLException e) {
 			log.debug("Database query failed: {}", e.getMessage());
-			throw new RuntimeException("Database error while fetching word", e);
 		}
 		return null;
 	}

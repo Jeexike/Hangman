@@ -12,50 +12,67 @@
         <maven.compiler.source>25</maven.compiler.source>
         <maven.compiler.target>25</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
+        <lib.lombok.version>1.18.44</lib.lombok.version>
+        <lib.log4j.version>2.25.3</lib.log4j.version>
+        <lib.junit.version>5.11.2</lib.junit.version>
+        <lib.assertj.version>3.27.7</lib.assertj.version>
+        <lib.postgresql.version>42.7.7</lib.postgresql.version>
+        <lib.hikaricp.version>7.0.2</lib.hikaricp.version>
+
+        <plugin.compiler.version>3.15.0</plugin.compiler.version>
+        <plugin.surefire.version>3.5.5</plugin.surefire.version>
+        <plugin.exec.version>3.6.3</plugin.exec.version>
+        <plugin.formatter.version>2.29.0</plugin.formatter.version>
+        <plugin.liquibase.version>5.0.2</plugin.liquibase.version>
+        <plugin.versions.version>2.21.0</plugin.versions.version>
     </properties>
 
     <dependencies>
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
-            <version>1.18.44</version>
+            <version>${lib.lombok.version}</version>
         </dependency>
+
         <dependency>
             <groupId>org.apache.logging.log4j</groupId>
             <artifactId>log4j-api</artifactId>
-            <version>2.25.3</version>
+            <version>${lib.log4j.version}</version>
         </dependency>
         <dependency>
             <groupId>org.apache.logging.log4j</groupId>
             <artifactId>log4j-core</artifactId>
-            <version>2.25.3</version>
+            <version>${lib.log4j.version}</version>
         </dependency>
         <dependency>
             <groupId>org.apache.logging.log4j</groupId>
             <artifactId>log4j-slf4j2-impl</artifactId>
-            <version>2.25.3</version>
+            <version>${lib.log4j.version}</version>
         </dependency>
+
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-engine</artifactId>
-            <version>5.11.2</version>
+            <version>${lib.junit.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.assertj</groupId>
             <artifactId>assertj-core</artifactId>
-            <version>3.27.7</version>
+            <version>${lib.assertj.version}</version>
             <scope>test</scope>
         </dependency>
+
         <dependency>
             <groupId>org.postgresql</groupId>
             <artifactId>postgresql</artifactId>
-            <version>42.7.7</version>
+            <version>${lib.postgresql.version}</version>
         </dependency>
         <dependency>
             <groupId>com.zaxxer</groupId>
             <artifactId>HikariCP</artifactId>
-            <version>7.0.2</version>
+            <version>${lib.hikaricp.version}</version>
         </dependency>
     </dependencies>
 
@@ -64,7 +81,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.15.0</version>
+                <version>${plugin.compiler.version}</version>
                 <configuration>
                     <source>25</source>
                     <target>25</target>
@@ -72,7 +89,7 @@
                         <path>
                             <groupId>org.projectlombok</groupId>
                             <artifactId>lombok</artifactId>
-                            <version>1.18.44</version>
+                            <version>${lib.lombok.version}</version>
                         </path>
                     </annotationProcessorPaths>
                 </configuration>
@@ -81,13 +98,13 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
-                <version>3.5.5</version>
+                <version>${plugin.surefire.version}</version>
             </plugin>
 
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>exec-maven-plugin</artifactId>
-                <version>3.6.3</version>
+                <version>${plugin.exec.version}</version>
                 <configuration>
                     <mainClass>org.example.Main</mainClass>
                 </configuration>
@@ -96,7 +113,7 @@
             <plugin>
                 <groupId>net.revelc.code.formatter</groupId>
                 <artifactId>formatter-maven-plugin</artifactId>
-                <version>2.29.0</version>
+                <version>${plugin.formatter.version}</version>
                 <configuration>
                     <configFile>${project.basedir}/src/main/resources/formatter.xml</configFile>
                     <encoding>UTF-8</encoding>
@@ -118,10 +135,16 @@
             <plugin>
                 <groupId>org.liquibase</groupId>
                 <artifactId>liquibase-maven-plugin</artifactId>
-                <version>5.0.2</version>
+                <version>${plugin.liquibase.version}</version>
                 <configuration>
                     <propertyFile>liquibase.properties</propertyFile>
                 </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>versions-maven-plugin</artifactId>
+                <version>${plugin.versions.version}</version>
             </plugin>
         </plugins>
     </build>

@@ -7,7 +7,6 @@ public class MainMenuView implements View {
 
 	@Override
 	public void show() {
-		log.debug("Displaying main menu");
 		System.out.println("┌────────────────────────────────────┐");
 		System.out.println("│           ГЛАВНОЕ МЕНЮ             │");
 		System.out.println("├────────────────────────────────────┤");
@@ -25,7 +24,6 @@ public class MainMenuView implements View {
 
 	@Override
 	public int handleInput() {
-		log.debug("Processing input in main menu");
 		while (true) {
 			String input = in.next();
 
@@ -43,7 +41,6 @@ public class MainMenuView implements View {
 				continue;
 			}
 
-			log.debug("User selected menu item: {}", choice);
 			return choice;
 		}
 	}

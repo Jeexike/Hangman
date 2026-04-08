@@ -6,7 +6,7 @@ import model.CategoriesEnum;
 import model.DifficultyEnum;
 
 public interface WordRepository {
-	final String FILE_PATH = "src/main/resources/words";
+	String FILE_PATH = "src/main/resources/words";
 
 	void getAllWords(String filepath);
 

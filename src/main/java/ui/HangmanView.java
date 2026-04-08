@@ -37,7 +37,6 @@ public class HangmanView implements View {
 
 	@Override
 	public int handleInput() {
-		log.debug("Waiting for user letter input");
 		System.out.print("Введите русскую букву: ");
 
 		while (true) {
@@ -55,17 +54,14 @@ public class HangmanView implements View {
 
 			switch (status) {
 				case RIGHT -> {
-					log.debug("Letter '{}' guessed correctly", letter);
 					System.out.println("Есть такая буква!");
 					return 1;
 				}
 				case WRONG -> {
-					log.debug("Letter '{}' not found", letter);
 					System.out.println("Такой буквы нет!");
 					return 0;
 				}
 				case EXISTS -> {
-					log.debug("Letter '{}' already entered", letter);
 					System.out.println("Вы уже вводили букву '" + letter + "'");
 					System.out.print("Введите другую букву: ");
 				}
@@ -76,10 +72,6 @@ public class HangmanView implements View {
 	public void drowGameState() {
 		int errors = GameStateConstructor.getWrongLetters().size();
 		int attemptsRemaining = GameStateConstructor.getMaxLives() - errors;
-
-		log.debug("Game state: errors={}, attemptsRemaining={}", errors, attemptsRemaining);
-		log.debug("Visible word: {}", GameStateConstructor.getVisibleWord());
-		log.debug("Wrong letters: {}", GameStateConstructor.getWrongLetters());
 
 		System.out.println(StagesOfHangman.getStage(errors).getDisplayName());
 		System.out.println("Слово: " + GameStateConstructor.getVisibleWord());
